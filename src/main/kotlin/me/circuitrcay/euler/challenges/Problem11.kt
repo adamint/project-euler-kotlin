@@ -43,7 +43,7 @@ class Problem11 : Problem<String>() {
             // diagonal LEFT
             results.add(prompt[index].toLong()
                     * prompt[index - 21].toLong() * prompt[index - 21 - 21].toLong()
-                    * prompt[index - 21 - 21 - 21].toLong())
+                    * prompt[index - 21 - 21].toLong())
             results.add(prompt[index].toLong()
                     * prompt[index + 19].toLong() * prompt[index + 19 + 19].toLong()
                     * prompt[index + 19 + 19 + 19].toLong())
