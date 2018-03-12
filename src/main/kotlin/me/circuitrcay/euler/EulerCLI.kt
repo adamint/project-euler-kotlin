@@ -15,9 +15,14 @@ fun main(args: Array<String>) {
         var found = false
         problemArray.forEach { problem ->
             if (problem.name.contains(command.toRegex())) {
-                val challenge = problem.newInstance() as Problem<*>
-                println("Solving Euler Problem $command..")
-                challenge.run()
+                try {
+                    val challenge = problem.newInstance() as Problem<*>
+                    println("Solving Euler Problem $command..")
+                    challenge.run()
+                }
+                catch(e: Exception) {
+                    e.printStackTrace()
+                }
                 found = true
             }
         }

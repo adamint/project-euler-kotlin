@@ -20,6 +20,7 @@ repositories {
 }
 
 dependencies {
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.11.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 

@@ -1,4 +1,4 @@
-package me.circuitrcay.euler.challenges
+package me.circuitrcay.euler.challenges.oneToTwentyFive
 
 import me.circuitrcay.euler.Problem
 
