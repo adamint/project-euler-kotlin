@@ -1,1 +1,0 @@
-// unable to get around floating point math limitations???? halp
