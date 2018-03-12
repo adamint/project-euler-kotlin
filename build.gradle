@@ -20,7 +20,6 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
     compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
     compile group: 'org.jsoup', name: 'jsoup', version: '1.11.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"

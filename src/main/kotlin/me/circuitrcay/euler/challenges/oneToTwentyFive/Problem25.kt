@@ -5,7 +5,6 @@ import java.math.BigInteger
 
 class Problem25 : Problem<String>() {
     override fun calculate(): Any {
-        var curr = 3L
         val fibs = mutableListOf<BigInteger>(BigInteger.ONE, BigInteger.ONE)
         while (true) {
             if (fibs.last().toString().length >= 1000) {
