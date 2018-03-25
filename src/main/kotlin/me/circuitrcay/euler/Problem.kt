@@ -13,17 +13,11 @@ abstract class Problem<E> {
     }
 
     internal fun run() {
-
-        val timer = me.circuitrcay.euler.Timer()
-
+        val timer = Timer()
         val locale = "%s%-10s%s%-10s%s"
-
         timer.start()
-
         val result = calculate()
-
         System.out.printf(locale, "Result: ", result, "    ", timer.formatDuration(), "\n")
-
     }
 
     private fun readInput(): String? {

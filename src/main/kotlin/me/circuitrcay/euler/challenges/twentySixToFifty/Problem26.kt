@@ -1,7 +1,8 @@
 package me.circuitrcay.euler.challenges.twentySixToFifty
 
 import me.circuitrcay.euler.Problem
-import java.math.BigInteger
+import me.circuitrcay.euler.utils.bigInt
+import me.circuitrcay.euler.utils.primes
 
 class Problem26 : Problem<String>() {
     override fun calculate(): Any {

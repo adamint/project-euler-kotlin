@@ -21,9 +21,9 @@ class Problem12 : Problem<String>() {
     }
 
 
-    fun <K, Int> frequencyMapOf(vararg pairs: Pair<K, kotlin.Int>): FrequencyMap<K, kotlin.Int> {
-        val mMap = mutableMapOf<K, kotlin.Int>()
-        val freqMap = FrequencyMap<K, kotlin.Int>(mMap)
+    fun <K> frequencyMapOf(vararg pairs: Pair<K, kotlin.Int>): FrequencyMap<K> {
+        val mMap = mutableMapOf<K, Int>()
+        val freqMap = FrequencyMap(mMap)
         for (pair in pairs) {
             freqMap.add(pair)
         }
@@ -32,8 +32,8 @@ class Problem12 : Problem<String>() {
 
     fun generatePrimeFactorsWithFrequency(
             _n: Number,
-            action: (FrequencyMap<Long, Int>) -> Unit = {}
-    ): FrequencyMap<Long, Int>? {
+            action: (FrequencyMap<Long>) -> Unit = {}
+    ): FrequencyMap<Long>? {
         when (_n) {
             is Long -> {
             }
@@ -43,7 +43,7 @@ class Problem12 : Problem<String>() {
         }
         var n = _n.toLong()
         if (n < 2) return null
-        val primeFactors = frequencyMapOf<Long, Int>()
+        val primeFactors = frequencyMapOf<Long>()
         while (n % 2L == 0L) {
             primeFactors.add(2L, 1)
             n /= 2L
@@ -65,7 +65,7 @@ class Problem12 : Problem<String>() {
 /**
  * Found this on Github oof https://github.com/tocttou/project-euler-kotlin/blob/master/main/src/utils/FrequencyMap.kt
  */
-class FrequencyMap<K, Int>(private val b: MutableMap<K, kotlin.Int>)
+class FrequencyMap<K>(private val b: MutableMap<K, kotlin.Int>)
     : MutableMap<K, kotlin.Int> by b {
     fun add(key: K, freq: kotlin.Int = 1) {
         b.computeIfPresent(key) { _, b -> b + freq }
@@ -79,10 +79,10 @@ class FrequencyMap<K, Int>(private val b: MutableMap<K, kotlin.Int>)
         }
     }
 
-    fun addAll(iter: Iterable<FrequencyMap<K, kotlin.Int>>) {
+    fun addAll(iter: Iterable<FrequencyMap<K>>) {
         for (i in iter) {
             for (j in i.keys) {
-                add(j, i.get(j)!!)
+                add(j, i[j]!!)
             }
         }
     }
@@ -98,12 +98,12 @@ class FrequencyMap<K, Int>(private val b: MutableMap<K, kotlin.Int>)
     }
 
     override fun equals(other: Any?): Boolean {
-        if (!(other is FrequencyMap<*, *>)) return false
+        if (!(other is FrequencyMap<*>)) return false
         return generateMutableMapFromFrequencyMap(this)
                 .equals(generateMutableMapFromFrequencyMap(other))
     }
 
-    fun generateMutableMapFromFrequencyMap(obj: FrequencyMap<*, *>): MutableMap<Any?, Any?> {
+    fun generateMutableMapFromFrequencyMap(obj: FrequencyMap<*>): MutableMap<Any?, Any?> {
         val mMap = mutableMapOf<Any?, Any?>()
         obj.forEach { t, u -> mMap.put(t, u) }
         return mMap
