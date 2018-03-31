@@ -21,7 +21,7 @@ fun main(args: Array<String>) {
                     challenge.run()
                 }
                 catch(e: Exception) {
-                    e.printStackTrace()
+                    if (e !is IllegalAccessException && e!is InstantiationException) e.printStackTrace()
                 }
                 found = true
             }

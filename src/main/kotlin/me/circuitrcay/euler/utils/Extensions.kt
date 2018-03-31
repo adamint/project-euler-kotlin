@@ -1,6 +1,7 @@
 package me.circuitrcay.euler.utils
 
 import org.apache.commons.collections4.iterators.PermutationIterator
+import org.jsoup.Jsoup
 import java.math.BigInteger
 
 fun <T : Number> bigInt(n: T) = BigInteger(n.toString())
@@ -43,6 +44,8 @@ fun sieveOf(num: Int): Array<Boolean> {
     return primes
 }
 
+fun Array<Boolean>.convertSieveToPlaces() = mapIndexed { index, b -> if (!b) -1 else index }.filter { it != -1 }
+
 fun String.isPalindrome(): Boolean = this == reversed()
 
 fun isPanDigital(x: Int, y: Int): Boolean {
@@ -57,6 +60,19 @@ fun String.isPanDigital(n: Int? = null) = length == n ?: 9 && contains(1, n ?: 9
 fun Long.isPanDigital(n: Int? = null) = toString().length == n ?: 9 && toString().contains(0, n ?: 9)
 fun String.contains(start: Int, end: Int): Boolean {
     for (i in start..end step 1) if (!contains(i.toString())) return false
+    return true
+}
+
+fun Int.permutationOf(vararg ints: Int) = toLong().permutationOf(*ints.map { it.toLong() }.toLongArray())
+
+fun Long.permutationOf(vararg longs: Long): Boolean {
+    if (longs.map { it.toString().length }.filter { it != toString().length }.count() > 0) return false
+    longs.map { it.toString() }.forEach { long ->
+        toString().forEach { if (!long.contains(it)) return false }
+        long.map { it.toString() }.forEach { against ->
+            against.forEach { if (!long.contains(it)) return false }
+        }
+    }
     return true
 }
 
@@ -97,3 +113,5 @@ fun triangleNumbersOf(num: Int): List<Int> {
     (1..num).forEach { triangleNumbers.add((0.5f * it.toFloat() * (it + 1).toFloat()).toInt()) }
     return triangleNumbers
 }
+
+fun String.getResource() = Jsoup.connect(this).get().body().text()
