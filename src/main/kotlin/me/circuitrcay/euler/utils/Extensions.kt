@@ -115,3 +115,77 @@ fun triangleNumbersOf(num: Int): List<Int> {
 }
 
 fun String.getResource() = Jsoup.connect(this).get().body().text()
+
+fun print(arr: Array<Array<Int>>) {
+    val sb = StringBuilder()
+    arr.forEach { row -> row.forEach { sb.append("$it ") }; sb.append("\n") }
+    println(sb)
+}
+
+fun generateCounterClockwiseSpiral(size: Int, prev: Array<Array<Int>>? = null): Array<Array<Int>> {
+    if (size % 2 == 0) throw IllegalArgumentException("Size must be odd")
+    var spiral = Array(size, { Array(size, { 1 }) })
+    if (prev != null) {
+        val list = mutableListOf<Array<Int>>()
+        list.add(Array(size, { 0 }))
+        list.addAll(prev.toMutableList())
+        list.add(Array(size, { 0 }))
+        for (i in 1..(list.size - 2)) {
+            val temp = mutableListOf(0)
+            temp.addAll(list[i].toMutableList())
+            temp.add(0)
+            list[i] = temp.toTypedArray()
+        }
+        spiral = list.toTypedArray()
+    }
+    var current = if (prev == null) Pair(size / 2, size / 2)
+    else Pair(size - 2, 1)
+    var displacement = if (prev == null) 1 else prev.size
+    for (currSize in 2..size) {
+        val startValue = spiral[current.first][current.second]
+        var count = 1
+        for (right in 1..displacement) {
+            spiral[current.first][current.second + right] = startValue + count
+            count++
+        }
+        current = Pair(current.first, current.second + displacement)
+        for (up in 1..displacement) {
+            spiral[current.first - up][current.second] = startValue + count
+            count++
+        }
+        current = Pair(current.first - displacement, current.second)
+        for (left in 1..(displacement + 1)) {
+            spiral[current.first][current.second - left] = startValue + count
+            count++
+        }
+        current = Pair(current.first, current.second - displacement - 1)
+        for (down in 1..(displacement + 1)) {
+            spiral[current.first + down][current.second] = startValue + count
+            count++
+        }
+        if (displacement + 2 >= size) {
+            var right = 1
+            while (right < size) {
+                spiral[size - 1][right] = startValue + count
+                right++
+                count++
+            }
+            return spiral
+        }
+        current = Pair(current.first + displacement + 1, current.second)
+        displacement += 2
+    }
+
+    return spiral
+}
+
+fun generateClockwiseSpiral(size: Int) = generateCounterClockwiseSpiral(size).reversedArray()
+
+fun <T> getDiagonals(arr: Array<Array<T>>): List<T> {
+    val list = mutableListOf<T>()
+    for (x in 0..(arr.size - 1)) {
+        list.add(arr[x][x])
+        if (x != arr.size / 2) list.add(arr[arr.size - 1 - x][x])
+    }
+    return list
+}
