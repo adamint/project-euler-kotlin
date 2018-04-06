@@ -114,7 +114,7 @@ fun triangleNumbersOf(num: Int): List<Int> {
     return triangleNumbers
 }
 
-fun String.getResource() = Jsoup.connect(this).get().body().text()
+fun String.getResource(): String = Jsoup.connect(this).get().body().text()
 
 fun print(arr: Array<Array<Int>>) {
     val sb = StringBuilder()
